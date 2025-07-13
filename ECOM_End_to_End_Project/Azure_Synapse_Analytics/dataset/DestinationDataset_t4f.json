@@ -1,0 +1,21 @@
+{
+	"name": "DestinationDataset_t4f",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "final_output",
+				"folderPath": "gold",
+				"fileSystem": "ecomm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
