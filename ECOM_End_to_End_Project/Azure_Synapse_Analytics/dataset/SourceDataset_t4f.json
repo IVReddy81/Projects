@@ -1,0 +1,194 @@
+{
+	"name": "SourceDataset_t4f",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "part-00000-3518379f-54a8-446d-99dd-e2afcabd2223.c000.snappy.parquet",
+				"folderPath": "silver",
+				"fileSystem": "ecomm"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "seller_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "order_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "order_status",
+				"type": "UTF8"
+			},
+			{
+				"name": "order_purchase_timestamp",
+				"type": "INT96"
+			},
+			{
+				"name": "order_approved_at",
+				"type": "INT96"
+			},
+			{
+				"name": "order_delivered_carrier_date",
+				"type": "INT96"
+			},
+			{
+				"name": "order_delivered_customer_date",
+				"type": "INT96"
+			},
+			{
+				"name": "order_estimated_delivery_date",
+				"type": "INT96"
+			},
+			{
+				"name": "order_purchase_to_approve",
+				"type": "INT_32"
+			},
+			{
+				"name": "order_purchase_to_carrier_delivery",
+				"type": "INT_32"
+			},
+			{
+				"name": "order_purchase_to_estimated_deliery",
+				"type": "INT_32"
+			},
+			{
+				"name": "order_purchase_to_customer_delivery",
+				"type": "INT_32"
+			},
+			{
+				"name": "delay",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_unique_id",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_zip_code_prefix",
+				"type": "INT_32"
+			},
+			{
+				"name": "customer_city",
+				"type": "UTF8"
+			},
+			{
+				"name": "customer_state",
+				"type": "UTF8"
+			},
+			{
+				"name": "payment_sequential",
+				"type": "INT_64"
+			},
+			{
+				"name": "payment_type",
+				"type": "UTF8"
+			},
+			{
+				"name": "payment_installments",
+				"type": "INT_64"
+			},
+			{
+				"name": "payment_value",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "order_item_id",
+				"type": "INT_32"
+			},
+			{
+				"name": "shipping_limit_date",
+				"type": "INT96"
+			},
+			{
+				"name": "price",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "freight_value",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "product_category_name",
+				"type": "UTF8"
+			},
+			{
+				"name": "product_name_lenght",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_description_lenght",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_photos_qty",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_weight_g",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_length_cm",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_height_cm",
+				"type": "INT_32"
+			},
+			{
+				"name": "product_width_cm",
+				"type": "INT_32"
+			},
+			{
+				"name": "seller_zip_code_prefix",
+				"type": "INT_32"
+			},
+			{
+				"name": "seller_city",
+				"type": "UTF8"
+			},
+			{
+				"name": "seller_state",
+				"type": "UTF8"
+			},
+			{
+				"name": "geolocation_zip_code_prefix",
+				"type": "INT_32"
+			},
+			{
+				"name": "geolocation_lat",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "geolocation_lng",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "geolocation_city",
+				"type": "UTF8"
+			},
+			{
+				"name": "geolocation_state",
+				"type": "UTF8"
+			}
+		]
+	}
+}
