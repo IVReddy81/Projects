@@ -1,0 +1,12 @@
+{
+	"name": "lookup_LS",
+	"properties": {
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://raw.githubusercontent.com/IVReddy81/Venkat_Projects/refs/heads/main/ECOM_End_to_End_Project/lookup_Input/json_lookup.json5",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

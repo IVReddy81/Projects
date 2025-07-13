@@ -1,0 +1,30 @@
+{
+	"name": "ecomm_copy_http_src_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ecomm_copy_src_HTTP_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"input_file": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "IVReddy81/Venkat_Projects/refs/heads/main/ECOM_End_to_End_Project/csv_files/@{dataset().input_file}",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

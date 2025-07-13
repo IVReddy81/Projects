@@ -1,0 +1,32 @@
+{
+	"name": "ecomm_des_ADLS_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ecomm_des_ADLS_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"output_file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().output_file_name",
+					"type": "Expression"
+				},
+				"folderPath": "bronze",
+				"fileSystem": "ecomm"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
