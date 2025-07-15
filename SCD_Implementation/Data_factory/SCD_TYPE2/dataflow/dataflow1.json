@@ -1,0 +1,62 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "emp_DS",
+						"type": "DatasetReference"
+					},
+					"name": "empSRC"
+				},
+				{
+					"dataset": {
+						"referenceName": "SCD2_DS",
+						"type": "DatasetReference"
+					},
+					"name": "SCD2src"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "derivedColumn"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as integer,",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> empSRC",
+				"source(output(",
+				"          sur_key as integer,",
+				"          id as integer,",
+				"          name as string,",
+				"          start_date as date,",
+				"          end_date as date,",
+				"          current_flag as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> SCD2src",
+				"empSRC, SCD2src lookup(empSRC@id == SCD2src@id,",
+				"     multiple: true,",
+				"     broadcast: 'auto')~> lookup1",
+				"lookup1 derive(der_start_date = currentDate(),",
+				"          der_end_date = toDate('1900-01-01'),",
+				"          der_flag_N = 'N',",
+				"          der_flag_Y = 'Y') ~> derivedColumn"
+			]
+		}
+	}
+}
