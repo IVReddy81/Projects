@@ -59,8 +59,9 @@
 				"          der_End_Date = toDate('1900-01-01'),",
 				"          der_flag_N = 'N',",
 				"          der_flag_Y = 'Y') ~> derivedColumn",
-				"derivedColumn split(ERROR_FUNCTION(''),",
-				"     disjoint: true) ~> split@(, )"
+				"derivedColumn split(isNull(tid),",
+				"     ERROR_FUNCTION(''),",
+				"     disjoint: true) ~> split@(newRows, changedRows, )"
 			]
 		}
 	}
