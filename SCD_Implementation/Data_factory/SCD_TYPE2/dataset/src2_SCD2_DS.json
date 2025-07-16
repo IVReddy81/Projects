@@ -1,0 +1,43 @@
+{
+	"name": "src2_SCD2_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "sur_key",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "tid",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "tname",
+				"type": "varchar"
+			},
+			{
+				"name": "start_date",
+				"type": "date"
+			},
+			{
+				"name": "end_date",
+				"type": "date"
+			},
+			{
+				"name": "flag",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "scd2"
+		}
+	}
+}
