@@ -87,7 +87,7 @@
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
 				"     disjoint: true) ~> split@(newRows, changedRows)",
-				"split@changedRows alterRow(updateIf(id==tid && flag=='Y' && name==tname)) ~> alterRowUPDATEIF",
+				"split@changedRows alterRow(updateIf(1==1)) ~> alterRowUPDATEIF",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
