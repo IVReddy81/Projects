@@ -45,7 +45,7 @@
 				"          end_date as date,",
 				"          flag as string",
 				"     ),",
-				"     allowSchemaDrift: true,",
+				"     allowSchemaDrift: false,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> src2SCD2",
