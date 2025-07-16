@@ -60,8 +60,8 @@
 				"          der_flag_N = 'N',",
 				"          der_flag_Y = 'Y') ~> derivedColumn",
 				"derivedColumn split(isNull(tid),",
-				"     ERROR_FUNCTION(''),",
-				"     disjoint: true) ~> split@(newRows, changedRows, )"
+				"     id==tid && name!=tname,",
+				"     disjoint: true) ~> split@(newRows, changedRows, unChangedRows)"
 			]
 		}
 	}
