@@ -57,6 +57,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     parameter1 as integer",
+				"}",
 				"source(output(",
 				"          id as integer,",
 				"          name as string",
