@@ -54,7 +54,8 @@
 				"     broadcast: 'auto')~> lookup",
 				"lookup derive(der_Start_Date = currentDate(),",
 				"          der_End_Date = toDate('1900-01-01'),",
-				"          der_flag_ = ERROR_FUNCTION('')) ~> derivedColumn"
+				"          der_flag_N = 'N',",
+				"          der_flag_Y = 'Y') ~> derivedColumn"
 			]
 		}
 	}
