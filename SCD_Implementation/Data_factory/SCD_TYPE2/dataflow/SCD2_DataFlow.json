@@ -33,6 +33,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "sinkUpdateInsert"
+				},
+				{
+					"dataset": {
+						"referenceName": "src2_SCD2_DS",
+						"type": "DatasetReference"
+					},
+					"name": "sinkUPDATEUPDATE"
 				}
 			],
 			"transformations": [
@@ -46,7 +53,7 @@
 					"name": "split"
 				},
 				{
-					"name": "alterRow1"
+					"name": "alterRowUPDATEIF"
 				}
 			],
 			"scriptLines": [
@@ -80,7 +87,7 @@
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
 				"     disjoint: true) ~> split@(newRows, changedRows)",
-				"split@changedRows alterRow() ~> alterRow1",
+				"split@changedRows alterRow(updateIf(1==1)) ~> alterRowUPDATEIF",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -130,7 +137,31 @@
 				"          start_date = der_Start_Date,",
 				"          end_date = der_End_Date,",
 				"          flag = der_flag_Y",
-				"     )) ~> sinkUpdateInsert"
+				"     )) ~> sinkUpdateInsert",
+				"alterRowUPDATEIF sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          sur_key as integer,",
+				"          tid as integer,",
+				"          tname as string,",
+				"          start_date as date,",
+				"          end_date as date,",
+				"          flag as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          sur_key,",
+				"          tid,",
+				"          end_date,",
+				"          flag",
+				"     )) ~> sinkUPDATEUPDATE"
 			]
 		}
 	}
