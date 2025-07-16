@@ -19,7 +19,18 @@
 					"name": "src2SCD2"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "src2_SCD2_DS",
+						"type": "DatasetReference"
+					},
+					"name": "sinkNEWrows"
+				},
+				{
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "lookup"
@@ -61,7 +72,36 @@
 				"          der_flag_Y = 'Y') ~> derivedColumn",
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
-				"     disjoint: true) ~> split@(newRows, changedRows, unChangedRows)"
+				"     disjoint: true) ~> split@(newRows, changedRows, unChangedRows)",
+				"split@newRows sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          sur_key as integer,",
+				"          tid as integer,",
+				"          tname as string,",
+				"          start_date as date,",
+				"          end_date as date,",
+				"          flag as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          tid = id,",
+				"          tname = name,",
+				"          start_date = der_Start_Date,",
+				"          end_date = der_End_Date,",
+				"          flag = der_flag_Y",
+				"     )) ~> sinkNEWrows",
+				"split@unChangedRows sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
