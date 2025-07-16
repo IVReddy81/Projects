@@ -23,6 +23,9 @@
 			"transformations": [
 				{
 					"name": "lookup"
+				},
+				{
+					"name": "derivedColumn"
 				}
 			],
 			"scriptLines": [
@@ -46,9 +49,12 @@
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> src2SCD2",
-				"src1EMP, src2SCD2 lookup(id == ERROR_FUNCTION(''),",
+				"src1EMP, src2SCD2 lookup(id == tid,",
 				"     multiple: true,",
-				"     broadcast: 'auto')~> lookup"
+				"     broadcast: 'auto')~> lookup",
+				"lookup derive(der_Start_Date = currentDate(),",
+				"          der_End_Date = toDate('1900-01-01'),",
+				"          der_flag_ = ERROR_FUNCTION('')) ~> derivedColumn"
 			]
 		}
 	}
