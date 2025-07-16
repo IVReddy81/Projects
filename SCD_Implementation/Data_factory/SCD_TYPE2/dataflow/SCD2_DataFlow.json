@@ -156,7 +156,7 @@
 				"     insertable:false,",
 				"     updateable:true,",
 				"     upsertable:false,",
-				"     keys:['tid',(sur_key <old_sur_key)],",
+				"     keys:['tid'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
@@ -164,7 +164,8 @@
 				"     mapColumn(",
 				"          tid,",
 				"          end_date = der_Start_Date,",
-				"          flag = der_flag_N",
+				"          flag = der_flag_N,",
+				"          sur_key",
 				"     )) ~> sinkUPDATEUPDATE"
 			]
 		}
