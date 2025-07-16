@@ -90,7 +90,7 @@
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
 				"     disjoint: true) ~> split@(newRows, changedRows)",
-				"derivedColumn1 alterRow(updateIf(ERROR_FUNCTION('id=tid && sur_key<old_sur_key'))) ~> alterRowUPDATEIF",
+				"derivedColumn1 alterRow(updateIf(id==tid)) ~> alterRowUPDATEIF",
 				"split@changedRows derive(old_sur_key = sur_key) ~> derivedColumn1",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -156,14 +156,16 @@
 				"     insertable:false,",
 				"     updateable:true,",
 				"     upsertable:false,",
+				"     keys:['tid'],",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
 				"          tid,",
-				"          end_date = der_Start_Date,",
-				"          flag = der_flag_N",
+				"          start_date,",
+				"          end_date,",
+				"          flag",
 				"     )) ~> sinkUPDATEUPDATE"
 			]
 		}
