@@ -1,0 +1,48 @@
+{
+	"name": "SCD2_DataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "src1_EMP_DS",
+						"type": "DatasetReference"
+					},
+					"name": "src1EMP"
+				},
+				{
+					"dataset": {
+						"referenceName": "src2_SCD2_DS",
+						"type": "DatasetReference"
+					},
+					"name": "src2SCD2"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          id as integer,",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'NONE',",
+				"     format: 'table') ~> src1EMP",
+				"source(output(",
+				"          sur_key as integer,",
+				"          tid as integer,",
+				"          tname as string,",
+				"          start_date as date,",
+				"          end_date as date,",
+				"          flag as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> src2SCD2"
+			]
+		}
+	}
+}
