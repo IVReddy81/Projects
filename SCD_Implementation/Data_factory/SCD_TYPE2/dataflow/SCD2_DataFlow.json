@@ -26,6 +26,9 @@
 				},
 				{
 					"name": "derivedColumn"
+				},
+				{
+					"name": "split"
 				}
 			],
 			"scriptLines": [
@@ -45,7 +48,7 @@
 				"          end_date as date,",
 				"          flag as string",
 				"     ),",
-				"     allowSchemaDrift: false,",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> src2SCD2",
@@ -55,7 +58,9 @@
 				"lookup derive(der_Start_Date = currentDate(),",
 				"          der_End_Date = toDate('1900-01-01'),",
 				"          der_flag_N = 'N',",
-				"          der_flag_Y = 'Y') ~> derivedColumn"
+				"          der_flag_Y = 'Y') ~> derivedColumn",
+				"derivedColumn split(ERROR_FUNCTION(''),",
+				"     disjoint: true) ~> split@(, )"
 			]
 		}
 	}
