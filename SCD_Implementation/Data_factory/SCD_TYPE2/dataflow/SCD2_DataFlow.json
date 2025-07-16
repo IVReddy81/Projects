@@ -90,7 +90,7 @@
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
 				"     disjoint: true) ~> split@(newRows, changedRows)",
-				"derivedColumn1 alterRow(updateIf(id==tid)) ~> alterRowUPDATEIF",
+				"derivedColumn1 alterRow(updateIf(id==tid && sur_key<old_sur_key)) ~> alterRowUPDATEIF",
 				"split@changedRows derive(old_sur_key = sur_key) ~> derivedColumn1",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
