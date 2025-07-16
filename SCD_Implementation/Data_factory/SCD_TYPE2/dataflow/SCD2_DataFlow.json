@@ -20,7 +20,11 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "lookup"
+				}
+			],
 			"scriptLines": [
 				"source(output(",
 				"          id as integer,",
@@ -41,7 +45,10 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> src2SCD2"
+				"     format: 'table') ~> src2SCD2",
+				"src1EMP, src2SCD2 lookup(id == ERROR_FUNCTION(''),",
+				"     multiple: true,",
+				"     broadcast: 'auto')~> lookup"
 			]
 		}
 	}
