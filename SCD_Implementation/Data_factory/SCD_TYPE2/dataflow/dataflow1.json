@@ -5,6 +5,10 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "src1_EMP_DS",
+						"type": "DatasetReference"
+					},
 					"name": "src1EMP"
 				}
 			],
@@ -12,7 +16,9 @@
 			"transformations": [],
 			"scriptLines": [
 				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> src1EMP"
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> src1EMP"
 			]
 		}
 	}
