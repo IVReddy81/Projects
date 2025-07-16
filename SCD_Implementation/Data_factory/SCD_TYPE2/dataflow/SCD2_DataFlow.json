@@ -159,8 +159,8 @@
 				"     mapColumn(",
 				"          sur_key,",
 				"          tid,",
-				"          end_date,",
-				"          flag",
+				"          end_date = der_Start_Date,",
+				"          flag = der_flag_N",
 				"     )) ~> sinkUPDATEUPDATE"
 			]
 		}
