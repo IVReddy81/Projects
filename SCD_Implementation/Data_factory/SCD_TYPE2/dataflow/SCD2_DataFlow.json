@@ -54,12 +54,12 @@
 				},
 				{
 					"name": "alterRowUPDATEIF"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
-				"parameters{",
-				"     parameter1 as integer",
-				"}",
 				"source(output(",
 				"          id as integer,",
 				"          name as string",
@@ -90,7 +90,8 @@
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
 				"     disjoint: true) ~> split@(newRows, changedRows)",
-				"split@changedRows alterRow(updateIf(1==1)) ~> alterRowUPDATEIF",
+				"derivedColumn1 alterRow(updateIf(1==1)) ~> alterRowUPDATEIF",
+				"split@changedRows derive(old_sur_key = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
