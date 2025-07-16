@@ -26,9 +26,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "sinkNEWrows"
-				},
-				{
-					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -72,7 +69,7 @@
 				"          der_flag_Y = 'Y') ~> derivedColumn",
 				"derivedColumn split(isNull(tid),",
 				"     id==tid && name!=tname,",
-				"     disjoint: true) ~> split@(newRows, changedRows, unChangedRows)",
+				"     disjoint: true) ~> split@(newRows, changedRows)",
 				"split@newRows sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -97,11 +94,7 @@
 				"          start_date = der_Start_Date,",
 				"          end_date = der_End_Date,",
 				"          flag = der_flag_Y",
-				"     )) ~> sinkNEWrows",
-				"split@unChangedRows sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     )) ~> sinkNEWrows"
 			]
 		}
 	}
