@@ -1,0 +1,6 @@
+using merge command to implemnet scd1 in databricks
+MERGE INTO t_destination t
+USING t_stourec s
+ON t.id=s.id
+WHEN MATCHED THEN UPDATE *
+WHEN NT MATCHED THEN INSERT *
