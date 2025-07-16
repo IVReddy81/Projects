@@ -1,0 +1,9 @@
+{
+	"name": "SCDTYPE2DF",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0fb059cc-d20f-4091-8733-90ebf4e53f92",
+		"tenantId": "76261ceb-b88c-4d42-aaec-58d6fc10a49a"
+	}
+}
