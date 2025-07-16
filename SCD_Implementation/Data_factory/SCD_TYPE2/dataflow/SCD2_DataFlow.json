@@ -26,6 +26,9 @@
 						"type": "DatasetReference"
 					},
 					"name": "sinkNEWrows"
+				},
+				{
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -94,7 +97,11 @@
 				"          start_date = der_Start_Date,",
 				"          end_date = der_End_Date,",
 				"          flag = der_flag_Y",
-				"     )) ~> sinkNEWrows"
+				"     )) ~> sinkNEWrows",
+				"split@changedRows sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
