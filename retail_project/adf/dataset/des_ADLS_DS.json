@@ -1,0 +1,21 @@
+{
+	"name": "des_ADLS_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "des_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "bill.parquet",
+				"folderPath": "bronze",
+				"fileSystem": "retail"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

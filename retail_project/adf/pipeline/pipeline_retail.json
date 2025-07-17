@@ -1,0 +1,142 @@
+{
+	"name": "pipeline_retail",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_activity",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['event_id']"
+								},
+								"sink": {
+									"name": "event_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_type']"
+								},
+								"sink": {
+									"name": "event_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['customer_id']"
+								},
+								"sink": {
+									"name": "customer_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['event_timestamp']"
+								},
+								"sink": {
+									"name": "event_timestamp",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['payment_method']"
+								},
+								"sink": {
+									"name": "payment_method"
+								}
+							},
+							{
+								"source": {
+									"path": "$['product_id']"
+								},
+								"sink": {
+									"name": "product_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['product_category']"
+								},
+								"sink": {
+									"name": "product_category"
+								}
+							},
+							{
+								"source": {
+									"path": "$['amount']"
+								},
+								"sink": {
+									"name": "amount",
+									"type": "Double"
+								}
+							},
+							{
+								"source": {
+									"path": "$['location']"
+								},
+								"sink": {
+									"name": "location"
+								}
+							},
+							{
+								"source": {
+									"path": "$['status']"
+								},
+								"sink": {
+									"name": "status"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "src_http_DS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "des_ADLS_DS",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
