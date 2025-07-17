@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://github.com/manish040596/azure-data-engineer-projects/blob/main/retail_transactions_bronze.json",
+			"url": "https://raw.githubusercontent.com/manish040596/azure-data-engineer-projects/refs/heads/main/retail_transactions_bronze.json",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		},
