@@ -1,0 +1,139 @@
+{
+	"name": "retail_notebook_bronze_to_silver",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2",
+				"spark.autotune.trackingId": "a01cd293-0080-47e1-b093-693cc4c743c3"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"enableDebugMode": false,
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/f9e02590-d52f-44d5-8b1b-5993ca6e2ecc/resourceGroups/Prj_netflix_RG/providers/Microsoft.Synapse/workspaces/prj-synapse/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://prj-synapse.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.5",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"spark"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"df=spark.read.format(\"parquet\").load(\"abfss://retail@prjvenkat.dfs.core.windows.net/bronze\")\n",
+					"display(df)"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"from pyspark.sql.functions import *\n",
+					"df_purchase=df.where(col(\"event_type\")==\"purchase\")\n",
+					"display(df_purchase)"
+				],
+				"execution_count": 50
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"from pyspark.sql.types import *\n",
+					"df_purchase.printSchema()"
+				],
+				"execution_count": 15
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"for i in df_purchase.columns:\n",
+					"    print(f\"number of nulls related to {i} is\", df_purchase.filter(col(i)==\"\").count())\n",
+					""
+				],
+				"execution_count": 44
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"df_purchase=df_purchase.na.fill(\"NA\")"
+				],
+				"execution_count": 45
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"df_purchase.show()"
+				],
+				"execution_count": 46
+			},
+			{
+				"cell_type": "code",
+				"metadata": {
+					"collapsed": false
+				},
+				"source": [
+					"df_purchase=df_purchase.na.drop(how=\"any\",subset=[\"customer_id\"]).filter(col(\"customer_id\")!=\"\").withColumn(\"event_timestamp\",to_date(col(\"event_timestamp\"),\"YYYY-MM-DD\"))\n",
+					"df_purchase.count()"
+				],
+				"execution_count": 51
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"df_purchase.write.mode(\"append\").parquet(\"abfss://retail@prjvenkat.dfs.core.windows.net/silver\")"
+				],
+				"execution_count": 52
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					""
+				],
+				"execution_count": null
+			}
+		]
+	}
+}
