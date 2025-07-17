@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "prj-synapse"
+		},
+		"des_ADLS_accountKey": {
+			"value": ""
+		},
+		"prj-synapse-WorkspaceDefaultSqlServer_connectionString": {
+			"value": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=tcp:prj-synapse.sql.azuresynapse.net,1433;Initial Catalog=@{linkedService().DBName}"
+		},
+		"des_ADLS_properties_typeProperties_url": {
+			"value": "https://prjvenkat.dfs.core.windows.net/"
+		},
+		"prj-synapse-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://prjvenkat.dfs.core.windows.net"
+		},
+		"src_HTTP_LS_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/manish040596/azure-data-engineer-projects/refs/heads/main/retail_transactions_bronze.json"
+		}
+	}
+}
