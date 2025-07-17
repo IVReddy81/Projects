@@ -1,0 +1,38 @@
+{
+	"name": "ADLS_des_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_des_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folder": {
+				"type": "string"
+			},
+			"file": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@{dataset().file}.csv",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "bronze/@{dataset().folder}",
+					"type": "Expression"
+				},
+				"fileSystem": "netflix"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

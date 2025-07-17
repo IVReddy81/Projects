@@ -1,0 +1,30 @@
+{
+	"name": "HTTP_DS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HTTP_SRC_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"file": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "Venkat_Projects/refs/heads/main/Netflix_End_to_End_Project/csv_files/@{dataset().file}.csv",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
