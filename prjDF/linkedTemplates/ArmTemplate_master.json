@@ -1,0 +1,77 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "prjDF"
+		},
+		"FileServer1_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'FileServer1_LS'"
+		},
+		"sink_ADLS_LS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'sink_ADLS_LS'"
+		},
+		"FileServer1_LS_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "\\\\IVS\\walmart"
+		},
+		"FileServer1_LS_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "newuser"
+		},
+		"sink_ADLS_LS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://prjvenkat.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "prjDF_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"sink_ADLS_LS_accountKey": {
+						"value": "[parameters('sink_ADLS_LS_accountKey')]"
+					},
+					"FileServer1_LS_password": {
+						"value": "[parameters('FileServer1_LS_password')]"
+					},
+					"sink_ADLS_LS_properties_typeProperties_url": {
+						"value": "[parameters('sink_ADLS_LS_properties_typeProperties_url')]"
+					},
+					"FileServer1_LS_properties_typeProperties_host": {
+						"value": "[parameters('FileServer1_LS_properties_typeProperties_host')]"
+					},
+					"FileServer1_LS_properties_typeProperties_userId": {
+						"value": "[parameters('FileServer1_LS_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "prjDF"
+		},
+		"FileServer1_LS_password": {
+			"value": ""
+		},
+		"sink_ADLS_LS_accountKey": {
+			"value": ""
+		},
+		"FileServer1_LS_properties_typeProperties_host": {
+			"value": "\\\\IVS\\walmart"
+		},
+		"FileServer1_LS_properties_typeProperties_userId": {
+			"value": "newuser"
+		},
+		"sink_ADLS_LS_properties_typeProperties_url": {
+			"value": "https://prjvenkat.dfs.core.windows.net/"
+		}
+	}
+}
